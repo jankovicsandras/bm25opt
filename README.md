@@ -1,6 +1,6 @@
 # BM25opt
 ## faster BM25 search algorithms in Python
-####  by András Jankovics andras@jankovics.net
+####  by András Jankovics
 ####  based on https://github.com/dorianbrown/rank_bm25 by Dorian Brown
 ####  Apache License, Version 2.0 http://www.apache.org/licenses/LICENSE-2.0
 ----
