@@ -3,6 +3,10 @@
 ####  based on https://github.com/dorianbrown/rank_bm25 by Dorian Brown
 ####  Apache License, Version 2.0 http://www.apache.org/licenses/LICENSE-2.0
 ----
+## News:
+ - 1.1.0 supports updating the index with new ```add_documents()```, ```delete_documents()``` and ```update_documents()``` functions, see Example 4
+
+----
 ## Usage:
 #### Input:
  - ```corpus``` is a list of strings, e.g. ```[ 'bla bla bla', 'this is document two', ... ]```
@@ -15,7 +19,10 @@
 #### Example 1:
 This example uses the default tokenizer and the default BM25Okapi algorithm and returns the top 5 highest scoring document ids and scores.
 ```python
+# creating the index
 bm25opt_index = BM25opt( corpus )
+
+# search
 results = bm25opt_index.topk( question, 5 )
 print( 'results[0] id', results[0][0], 'results[0] score', results[0][1], 'results[0] document', corpus[ results[0][0] ] )
 ```
@@ -38,6 +45,25 @@ bm25opt_index = BM25opt( corpus, algo='okapi' )
 
 rank_bm25_scores = rank_bm25_index.get_scores( tokenizedquestion )
 bm25opt_scores = bm25opt_index.get_scores( question )
+```
+
+#### Example 4: updating the index
+```python
+# creating the index
+bm25opt_index = BM25opt( corpus )
+
+# add new documents
+bm25opt_index.add_documents( corpus2 ) 
+
+# delete from the index
+delete_ids = [ 1, 3, 5 ] # list of document ids (indices in corpus) to delete from the index
+bm25opt_index.delete_documents( delete_ids )
+
+# in-place update changed documents in the index
+update_ids = [ 1, 3, 5 ] # list of document ids (indices in corpus) to change
+updated_documents = [ 'first changed document', 'second changed document', ... ]
+bm25opt_index.update_documents( update_ids, updated_documents )
+
 ```
 ----
 ### Notes:
