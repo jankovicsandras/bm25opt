@@ -1,6 +1,7 @@
 ################################################################################
 #
 #  BM25opt : faster BM25 search algorithms in Python
+#  version 1.0.0
 #  by András Jankovics  https://github.com/jankovicsandras  andras@jankovics.net 
 #  based on https://github.com/dorianbrown/rank_bm25 by Dorian Brown
 #  Apache License, Version 2.0 http://www.apache.org/licenses/LICENSE-2.0
@@ -36,6 +37,8 @@ def tokenizer_whitespace( s ) :
 # integrated BM25 class with multiple algoritms and options
 class BM25opt :
   def __init__(self, corpus, algo='okapi', tokenizer_function=tokenizer_default, idf_algo=None, k1=None, b=None, epsilon=None, delta=None ):
+    # version
+    self.version = '1.0.0'
     # tokenizing input
     self.tokenizer_function = tokenizer_function
     tokenized_corpus = [ self.tokenizer_function( document ) for document in corpus ]
