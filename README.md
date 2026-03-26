@@ -4,6 +4,7 @@
 ####  Apache License, Version 2.0 http://www.apache.org/licenses/LICENSE-2.0
 ----
 ## News:
+ - 1.2.0 stopword filter in many languages (en, fr, es, pt, it, de, nl, sv, no, nn, da, ru, fi, hu, ga, id). Thanks, Peter Lindsten!
  - 1.1.0 supports updating the index with new ```add_documents()```, ```delete_documents()``` and ```update_documents()``` functions, see Example 4
 
 ----
@@ -14,6 +15,7 @@
  - optional arguments:
    - ```algo``` : BM25 algorithm, the default is ```'okapi'```; ```'l'``` and ```'plus'``` available
    - ```tokenizer_function``` : the default is ```tokenizer_default``` which is split-on-whitespace, lowercase, remove common punctiations
+   - ```stopwords_filter``` : the default is ```None``` (no filtering), see Example 5 for usage
    - ```idf_algo``` : default uses the same IDF as ```rank_bm25```; values ```'okapi'```, ```'l'``` and ```'plus'``` can override to fix https://github.com/dorianbrown/rank_bm25/issues/35
    - ```k1```, ```b```, ```epsilon```, ```delta``` : constants with standard default values, see https://en.wikipedia.org/wiki/Okapi_BM25
 #### Example 1:
@@ -65,6 +67,13 @@ updated_documents = [ 'first changed document', 'second changed document', ... ]
 bm25opt_index.update_documents( update_ids, updated_documents )
 
 ```
+
+#### Example 5: stopwords filter
+```python
+# the following languages are available: en, fr, es, pt, it, de, nl, sv, no, nn, da, ru, fi, hu, ga, id
+bm25opt_index = BM25opt( corpus, algo='plus', tokenizer_function=tokenizer_default, stopwords_filter=stop_words_filter('en') )
+```
+
 ----
 ### Notes:
 This is an optimized variant of rank_bm25 where the key insight is that we can calculate almost everything at index creation time in ```__init__()``` , resulting a words * documents-score dict, e.g.
